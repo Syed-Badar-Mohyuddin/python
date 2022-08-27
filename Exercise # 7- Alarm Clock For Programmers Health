@@ -1,0 +1,98 @@
+# Healthy Programmer - Exercise 7
+# 9am - 5pm
+# Water - water.txt.mp3 (3.5 litres) - Drank - log
+# Eyes - eyes.txt.mp3 - every 30 min - EyDone - log
+# Physical activity - physical.mp3 every - 45 min - ExDone - log
+# Rules
+# Pygame module to play audio
+
+import datetime
+import time
+import pygame
+
+
+
+ON_time = "09:00"
+OFF_time = "05:00"
+glass_of_water = 0.0
+
+
+while 1:
+
+    a = datetime.datetime.now()
+    d_m_y = a.strftime("%A %D")
+    t_i_m_e2 = a.strftime(" %I:%M %p")
+    t_i_m_e = a.strftime("%I:%M:%S")
+
+    if t_i_m_e == OFF_time:
+
+        break
+
+
+    elif t_i_m_e < OFF_time and t_i_m_e <= ON_time:
+
+
+            while 1:
+
+                time.sleep(1800)
+                pygame.init()
+                file = "eyes.mp3"
+                pygame.mixer.music.load(file)
+                pygame.mixer.music.play(-1)
+                b = input("Enter Eydone to stop the alarm: ")
+                if b == "Eydone":
+                    pygame.mixer.music.stop()
+                    f = open("eyes.txt", "a")
+                    f.write(f"{d_m_y} You Did Eyes Exercise At '{t_i_m_e2}'")
+                    f.write("\n")
+                    f.close()
+                    break
+                if b != "Eydone":
+                    print("Please Enter Eydone ")
+                    continue
+            #water
+            while 1:
+
+                if glass_of_water != 25.0:
+                        glass_of_water += 2.5
+                        time.sleep(900)
+                        pygame.init()
+                        file = "water.mp3"
+                        pygame.mixer.music.load(file)
+                        pygame.mixer.music.play(-1)
+                        a = input("Please Drink 2.5 glass of water!!"
+                                  "Enter Drank to stop the alarm : ")
+                        if a == "Drank":
+                            f = open("water.txt", "a")
+                            f.write(f"{d_m_y} You Drank Water At '{t_i_m_e2}'")
+                            f.write("\n")
+                            f.close()
+                            pygame.mixer.music.stop()
+                            break
+                        if a != "Drank":
+                            print("Please Enter Drank ")
+                            continue
+                elif glass_of_water == 25.0:
+                    break
+
+
+
+            while 1:
+
+                time.sleep(900)
+                pygame.init()
+                file = "physical.mp3"
+                pygame.mixer.music.load(file)
+                pygame.mixer.music.play(-1)
+                c = input("Enter Exdone to stop the Alarm: ")
+                if c == "Exdone":
+
+                    pygame.mixer.music.stop()
+                    f = open("physical.txt", "a")
+                    f.write(f"{d_m_y} You Did Physical Exercise At '{t_i_m_e2}'")
+                    f.write("\n")
+                    f.close()
+                    break
+                if c != "Exdone":
+                    print("Please Enter Exdone ")
+                    continue
